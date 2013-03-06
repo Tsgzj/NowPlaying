@@ -17,6 +17,8 @@
 		A4197A8016E471E700DC4378 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A4197A6016E471E600DC4378 /* Cocoa.framework */; };
 		A4197A8816E471E700DC4378 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = A4197A8616E471E700DC4378 /* InfoPlist.strings */; };
 		A4197A8B16E471E700DC4378 /* NowPlayingTests.m in Sources */ = {isa = PBXBuildFile; fileRef = A4197A8A16E471E700DC4378 /* NowPlayingTests.m */; };
+		A4197A9516E4744100DC4378 /* music.png in Resources */ = {isa = PBXBuildFile; fileRef = A4197A9416E4744100DC4378 /* music.png */; };
+		A41A47A216E4F17F0018F756 /* ScriptingBridge.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A41A47A116E4F17F0018F756 /* ScriptingBridge.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +51,9 @@
 		A4197A8716E471E700DC4378 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		A4197A8916E471E700DC4378 /* NowPlayingTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NowPlayingTests.h; sourceTree = "<group>"; };
 		A4197A8A16E471E700DC4378 /* NowPlayingTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NowPlayingTests.m; sourceTree = "<group>"; };
+		A4197A9416E4744100DC4378 /* music.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = music.png; sourceTree = "<group>"; };
+		A41A47A016E4F0990018F756 /* iTunes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iTunes.h; sourceTree = "<group>"; };
+		A41A47A116E4F17F0018F756 /* ScriptingBridge.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ScriptingBridge.framework; path = System/Library/Frameworks/ScriptingBridge.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +61,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A41A47A216E4F17F0018F756 /* ScriptingBridge.framework in Frameworks */,
 				A4197A6116E471E600DC4378 /* Cocoa.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -81,6 +87,7 @@
 				A4197A5E16E471E600DC4378 /* Products */,
 			);
 			sourceTree = "<group>";
+			usesTabs = 0;
 		};
 		A4197A5E16E471E600DC4378 /* Products */ = {
 			isa = PBXGroup;
@@ -94,6 +101,7 @@
 		A4197A5F16E471E600DC4378 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				A41A47A116E4F17F0018F756 /* ScriptingBridge.framework */,
 				A4197A6016E471E600DC4378 /* Cocoa.framework */,
 				A4197A7E16E471E700DC4378 /* SenTestingKit.framework */,
 				A4197A6216E471E600DC4378 /* Other Frameworks */,
@@ -116,6 +124,7 @@
 			children = (
 				A4197A7216E471E700DC4378 /* NPAppDelegate.h */,
 				A4197A7316E471E700DC4378 /* NPAppDelegate.m */,
+				A41A47A016E4F0990018F756 /* iTunes.h */,
 				A4197A7516E471E700DC4378 /* MainMenu.xib */,
 				A4197A6716E471E600DC4378 /* Supporting Files */,
 			);
@@ -125,6 +134,7 @@
 		A4197A6716E471E600DC4378 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				A4197A9416E4744100DC4378 /* music.png */,
 				A4197A6816E471E600DC4378 /* NowPlaying-Info.plist */,
 				A4197A6916E471E600DC4378 /* InfoPlist.strings */,
 				A4197A6C16E471E600DC4378 /* main.m */,
@@ -228,6 +238,7 @@
 				A4197A6B16E471E600DC4378 /* InfoPlist.strings in Resources */,
 				A4197A7116E471E600DC4378 /* Credits.rtf in Resources */,
 				A4197A7716E471E700DC4378 /* MainMenu.xib in Resources */,
+				A4197A9516E4744100DC4378 /* music.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -453,6 +464,7 @@
 				A4197A9016E471E700DC4378 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		A4197A9116E471E700DC4378 /* Build configuration list for PBXNativeTarget "NowPlayingTests" */ = {
 			isa = XCConfigurationList;
@@ -461,6 +473,7 @@
 				A4197A9316E471E700DC4378 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

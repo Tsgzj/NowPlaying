@@ -8,8 +8,12 @@
 
 #import <Cocoa/Cocoa.h>
 
-@interface NPAppDelegate : NSObject <NSApplicationDelegate>
-
-@property (assign) IBOutlet NSWindow *window;
+@interface NPAppDelegate : NSObject <NSApplicationDelegate,NSSharingServiceDelegate>
+{
+    NSWindow *window;
+    IBOutlet NSMenu *statusMenu;
+    NSStatusItem *statusItem;
+    IBOutlet NSMenuItem *weibo;
+}
 
 @end
