@@ -7,7 +7,7 @@
 //
 
 #import "NPAppDelegate.h"
-#import "iTunes.h"
+
 
 
 @interface NPAppDelegate()
@@ -128,6 +128,15 @@
 - (IBAction)quit:(id)sender;
 {
     [[NSApplication sharedApplication] terminate:nil];
+}
+
+- (IBAction)openPreferencePanel:(id)sender
+{
+//TODO: show preference window
+    PreferenceWindow *preferenceWindow=[[PreferenceWindow alloc] initWithWindowNibName:@"PreferenceWindow"];
+    [preferenceWindow loadWindow];
+    [[preferenceWindow window] center];
+    [[preferenceWindow window] resignFirstResponder];
 }
 
 

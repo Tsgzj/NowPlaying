@@ -7,6 +7,8 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import "iTunes.h"
+#import "PreferenceWindow.h"
 
 @interface NPAppDelegate : NSObject <NSApplicationDelegate,NSSharingServiceDelegate>
 {
