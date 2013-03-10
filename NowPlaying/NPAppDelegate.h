@@ -16,6 +16,10 @@
     IBOutlet NSMenu *statusMenu;
     NSStatusItem *statusItem;
     IBOutlet NSMenuItem *weibo;
+    IBOutlet NSMenuItem *twitter;
+    IBOutlet NSMenuItem *login;
 }
+
+@property (strong) IBOutlet NSMenuItem *login;
 
 @end
