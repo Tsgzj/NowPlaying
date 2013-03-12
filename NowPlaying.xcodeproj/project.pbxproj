@@ -19,8 +19,6 @@
 		A4197A8B16E471E700DC4378 /* NowPlayingTests.m in Sources */ = {isa = PBXBuildFile; fileRef = A4197A8A16E471E700DC4378 /* NowPlayingTests.m */; };
 		A4197A9516E4744100DC4378 /* music.png in Resources */ = {isa = PBXBuildFile; fileRef = A4197A9416E4744100DC4378 /* music.png */; };
 		A41A47A216E4F17F0018F756 /* ScriptingBridge.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A41A47A116E4F17F0018F756 /* ScriptingBridge.framework */; };
-		A42F96AC16E78EE900A1F078 /* PreferenceWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = A42F96AA16E78EE900A1F078 /* PreferenceWindow.m */; };
-		A42F96AD16E78EE900A1F078 /* PreferenceWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = A42F96AB16E78EE900A1F078 /* PreferenceWindow.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -56,9 +54,6 @@
 		A4197A9416E4744100DC4378 /* music.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = music.png; sourceTree = "<group>"; };
 		A41A47A016E4F0990018F756 /* iTunes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iTunes.h; sourceTree = "<group>"; };
 		A41A47A116E4F17F0018F756 /* ScriptingBridge.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ScriptingBridge.framework; path = System/Library/Frameworks/ScriptingBridge.framework; sourceTree = SDKROOT; };
-		A42F96A916E78EE900A1F078 /* PreferenceWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PreferenceWindow.h; sourceTree = "<group>"; };
-		A42F96AA16E78EE900A1F078 /* PreferenceWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PreferenceWindow.m; sourceTree = "<group>"; };
-		A42F96AB16E78EE900A1F078 /* PreferenceWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PreferenceWindow.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -129,9 +124,6 @@
 			children = (
 				A4197A7216E471E700DC4378 /* NPAppDelegate.h */,
 				A4197A7316E471E700DC4378 /* NPAppDelegate.m */,
-				A42F96A916E78EE900A1F078 /* PreferenceWindow.h */,
-				A42F96AA16E78EE900A1F078 /* PreferenceWindow.m */,
-				A42F96AB16E78EE900A1F078 /* PreferenceWindow.xib */,
 				A41A47A016E4F0990018F756 /* iTunes.h */,
 				A4197A7516E471E700DC4378 /* MainMenu.xib */,
 				A4197A6716E471E600DC4378 /* Supporting Files */,
@@ -247,7 +239,6 @@
 				A4197A7116E471E600DC4378 /* Credits.rtf in Resources */,
 				A4197A7716E471E700DC4378 /* MainMenu.xib in Resources */,
 				A4197A9516E4744100DC4378 /* music.png in Resources */,
-				A42F96AD16E78EE900A1F078 /* PreferenceWindow.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -284,7 +275,6 @@
 			files = (
 				A4197A6D16E471E600DC4378 /* main.m in Sources */,
 				A4197A7416E471E700DC4378 /* NPAppDelegate.m in Sources */,
-				A42F96AC16E78EE900A1F078 /* PreferenceWindow.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

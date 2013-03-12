@@ -7,8 +7,11 @@
 //
 
 #import "NPAppDelegate.h"
-
-
+NSString * const ShouldShowArtist = @"showArtist";
+NSString * const ShouldShowAlbum = @"showAlbum";
+NSString * const ShouldShowArtwork = @"showArtWork";
+NSString * const ShouldShowRating = @"showRating";
+NSString * const ShouldShowURL = @"showURL";
 
 @interface NPAppDelegate()
 
@@ -20,23 +23,54 @@
 
 @implementation NPAppDelegate
 @synthesize login;
+@synthesize showArtistMenuItem;
+@synthesize showAlbumMenuItem;
+@synthesize showArtworkMenuItem;
+@synthesize showRatingMenuItem;
+@synthesize showShareURLMenuItem;
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
     // Insert code here to initialize your application
-    NSLog(@"Lauching!");
+    
+    [[NSRunningApplication currentApplication] activateWithOptions:NSApplicationActivateIgnoringOtherApps];
+    NSLog(@"didfinishilaunching");
+}
+
+- (void)awakeFromNib{
     if([self isAppFromLoginItem])
         [[self login] setState:NSOnState];
     else
         [[self login] setState:NSOffState];
-    [[NSRunningApplication currentApplication] activateWithOptions:NSApplicationActivateIgnoringOtherApps];
-}
+    
+    NSUserDefaults *accountDefaults = [NSUserDefaults standardUserDefaults];
+    
+    if ([accountDefaults boolForKey:ShouldShowArtwork] == YES)
+        [showArtworkMenuItem setState:NSOnState];
+    else
+        [showArtworkMenuItem setState:NSOffState];
+    
+    if ([accountDefaults boolForKey:ShouldShowArtist] == YES)
+        [showArtistMenuItem setState:NSOnState];
+    else
+        [showArtistMenuItem setState:NSOffState];
+    
+    if ([accountDefaults boolForKey:ShouldShowAlbum] == YES)
+        [showAlbumMenuItem setState:NSOnState];
+    else
+        [showAlbumMenuItem setState:NSOffState];
+    
+    if ([accountDefaults boolForKey:ShouldShowRating] == YES)
+        [showRatingMenuItem setState:NSOnState];
+    else
+        [showRatingMenuItem setState:NSOffState];
 
-- (void)awakeFromNib{
+    
     statusItem = [[NSStatusBar systemStatusBar] statusItemWithLength:NSVariableStatusItemLength];
     [statusItem setMenu:statusMenu];
     [statusItem setImage:[NSImage imageNamed:@"music.png"]];
     [statusItem setHighlightMode:YES];
+    NSLog(@"awake");
 }
 
 - (NSString *)getNowPlayingInfo
@@ -54,22 +88,46 @@
     if (!track_name)
         return nil;
     
-    NSString *track_artist = current.artist;
-    if (![track_artist isEqualToString:@""])
-        track_artist = [NSString stringWithFormat:@"- %@ ", track_artist];
+    NSString *track_artist = @"";
+    NSString *track_album = @"";
+    NSString *track_rating = @"";
+    NSString *shareURL = @"";
+    
+    NSUserDefaults *accountDefaults = [NSUserDefaults standardUserDefaults];
+    
+    if ([accountDefaults boolForKey:ShouldShowArtist] == YES)
+    {
+        track_artist = current.artist;
+        if (![track_artist isEqualToString:@""])
+            track_artist = [NSString stringWithFormat:@"- %@ ", track_artist];
+    }
 
-    NSString *track_album = current.album;
-    if (![track_album isEqualToString:@""])
-        track_album = [NSString stringWithFormat:@"- %@ ", track_album];
+    if ([accountDefaults boolForKey:ShouldShowAlbum] == YES)
+    {
+        track_album = current.album;
+        if (![track_album isEqualToString:@""])
+            track_album = [NSString stringWithFormat:@"- %@ ", track_album];
+    }
     
-    int track_rating_number = (int)current.rating/20;
-    NSString *track_rating = @" Rating:";
-    for(int i=0; i<track_rating_number; i++)
-        track_rating = [track_rating stringByAppendingString:@"★"];
-    for(int i=0; i<5-track_rating_number; i++)
-        track_rating = [track_rating stringByAppendingString:@"☆"];
+    if ([accountDefaults boolForKey:ShouldShowRating] == YES)
+    {
+        int track_rating_number = (int)current.rating/20;
+        track_rating = @" Rating:";
+        for(int i=0; i<track_rating_number; i++)
+            track_rating = [track_rating stringByAppendingString:@"★"];
+        for(int i=0; i<5-track_rating_number; i++)
+            track_rating = [track_rating stringByAppendingString:@"☆"];
+    }
     
-    return [NSString stringWithFormat:@"%@%@%@%@%@", podcast, track_name, track_artist, track_album, track_rating];
+    if ([accountDefaults boolForKey:ShouldShowURL] == YES)
+    {
+        NSString *searchURL = @"http://music.douban.com/subject_search?search_text=";
+        NSString *track_name_decoded = [track_name stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        shareURL = [NSString stringWithFormat:@"  %@%@&cat=1003", searchURL, track_name_decoded];
+        NSLog(@"%@", shareURL);
+    }
+    
+    return [NSString stringWithFormat:@"%@%@%@%@%@%@", podcast, track_name, track_artist, track_album, track_rating, shareURL];
 }
 
 - (NSImage *)getTrackArtwork
@@ -96,9 +154,17 @@
     if (nowPlayingString.length >= 240) {
         nowPlayingString = [nowPlayingString substringToIndex:239];
     }
+    
     NSMutableArray *shareItems = [[NSMutableArray alloc] initWithObjects:nowPlayingString, nil];
-    if([self getTrackArtwork])
-        [shareItems addObject:[self getTrackArtwork]];
+
+    
+    NSUserDefaults *accountDefaults = [NSUserDefaults standardUserDefaults];
+    
+    if ([accountDefaults boolForKey:ShouldShowArtwork] == YES)
+    {
+        if([self getTrackArtwork])
+            [shareItems addObject:[self getTrackArtwork]];
+    }
     
     NSSharingService *weiboSharingService = [NSSharingService sharingServiceNamed:NSSharingServiceNamePostOnSinaWeibo];
     weiboSharingService.delegate = self;
@@ -122,8 +188,14 @@
         nowPlayingString = [nowPlayingString substringToIndex:119];
     }
     NSMutableArray *shareItems = [[NSMutableArray alloc] initWithObjects:nowPlayingString, nil];
-    if([self getTrackArtwork])
-        [shareItems addObject:[self getTrackArtwork]];
+    
+    NSUserDefaults *accountDefaults = [NSUserDefaults standardUserDefaults];
+    
+    if ([accountDefaults boolForKey:ShouldShowArtwork] == YES)
+    {
+        if([self getTrackArtwork])
+            [shareItems addObject:[self getTrackArtwork]];
+    }
     
     NSSharingService *twitterSharingService = [NSSharingService sharingServiceNamed:NSSharingServiceNamePostOnTwitter];
     twitterSharingService.delegate = self;
@@ -136,14 +208,6 @@
     [[NSApplication sharedApplication] terminate:nil];
 }
 
-- (IBAction)openPreferencePanel:(id)sender
-{
-//TODO: show preference window
-    PreferenceWindow *preferenceWindow=[[PreferenceWindow alloc] initWithWindowNibName:@"PreferenceWindow"];
-    [preferenceWindow loadWindow];
-    [[preferenceWindow window] center];
-    [[preferenceWindow window] resignFirstResponder];
-}
 
 - (IBAction)changeStatus:(id)sender
 {
@@ -162,16 +226,9 @@
 
 -(void) addAppAsLoginItem{
 	NSString * appPath = [[NSBundle mainBundle] bundlePath];
-    
-	// This will retrieve the path for the application
-	// For example, /Applications/test.app
+
 	CFURLRef url = (CFURLRef)CFBridgingRetain([NSURL fileURLWithPath:appPath]);
     
-	// Create a reference to the shared file list.
-    // We are adding it to the current user only.
-    // If we want to add it all users, use
-    // kLSSharedFileListGlobalLoginItems instead of
-    //kLSSharedFileListSessionLoginItems
 	LSSharedFileListRef loginItems = LSSharedFileListCreate(NULL,
                                                             kLSSharedFileListSessionLoginItems, NULL);
 	if (loginItems) {
@@ -190,23 +247,19 @@
 -(void) deleteAppFromLoginItem{
 	NSString * appPath = [[NSBundle mainBundle] bundlePath];
     
-	// This will retrieve the path for the application
-	// For example, /Applications/test.app
 	CFURLRef url = (CFURLRef)CFBridgingRetain([NSURL fileURLWithPath:appPath]);
     
-	// Create a reference to the shared file list.
 	LSSharedFileListRef loginItems = LSSharedFileListCreate(NULL,
                                                             kLSSharedFileListSessionLoginItems, NULL);
     
 	if (loginItems) {
 		UInt32 seedValue;
-		//Retrieve the list of Login Items and cast them to
-		// a NSArray so that it will be easier to iterate.
+
 		NSArray  *loginItemsArray = (NSArray *)CFBridgingRelease(LSSharedFileListCopySnapshot(loginItems, &seedValue));
 		for(int i = 0 ; i< [loginItemsArray count]; i++){
 			LSSharedFileListItemRef itemRef = (LSSharedFileListItemRef)CFBridgingRetain([loginItemsArray
                                                                         objectAtIndex:i]);
-			//Resolve the item with URL
+
 			if (LSSharedFileListItemResolve(itemRef, 0, (CFURLRef*) &url, NULL) == noErr) {
 				NSString * urlPath = [(NSURL*)CFBridgingRelease(url) path];
 				if ([urlPath compare:appPath] == NSOrderedSame){
@@ -226,23 +279,101 @@
     if (loginItems)
     {
         UInt32 seedValue;
-		//Retrieve the list of Login Items and cast them to
-		// a NSArray so that it will be easier to iterate.
 		NSArray  *loginItemsArray = (NSArray *)CFBridgingRelease(LSSharedFileListCopySnapshot(loginItems, &seedValue));
 		for(int i = 0 ; i< [loginItemsArray count]; i++){
 			LSSharedFileListItemRef itemRef = (LSSharedFileListItemRef)CFBridgingRetain([loginItemsArray
                                                                                          objectAtIndex:i]);
-			//Resolve the item with URL
 			if (LSSharedFileListItemResolve(itemRef, 0, (CFURLRef*) &url, NULL) == noErr) {
 				NSString * urlPath = [(NSURL*)CFBridgingRelease(url) path];
-                NSLog(@"%@", urlPath);
-				if ([urlPath compare:appPath] == NSOrderedSame)
+                if ([urlPath compare:appPath] == NSOrderedSame)
                     flag = true;
 			}
 		}
 	}    
     return flag;
 }
+
+- (IBAction)showArtist:(id)sender
+{
+    NSUserDefaults *accountDefaults = [NSUserDefaults standardUserDefaults];
+    
+    if ([accountDefaults boolForKey:ShouldShowArtist] == YES)
+    {
+        [showArtistMenuItem setState:NSOffState];
+        [accountDefaults setBool:NO forKey:ShouldShowArtist];
+    }
+    else
+    {
+        [showArtistMenuItem setState:NSOnState];
+        [accountDefaults setBool:YES forKey:ShouldShowArtist];
+    }
+
+}
+
+- (IBAction)showAlbum:(id)sender
+{
+    NSUserDefaults *accountDefaults = [NSUserDefaults standardUserDefaults];
+    
+    if ([accountDefaults boolForKey:ShouldShowAlbum] == YES)
+    {
+        [showAlbumMenuItem setState:NSOffState];
+        [accountDefaults setBool:NO forKey:ShouldShowAlbum];
+    }
+    else
+    {
+        [showAlbumMenuItem setState:NSOnState];
+        [accountDefaults setBool:YES forKey:ShouldShowAlbum];
+    }
+}
+
+- (IBAction)showArtwork:(id)sender
+{
+    NSUserDefaults *accountDefaults = [NSUserDefaults standardUserDefaults];
+    
+    if ([accountDefaults boolForKey:ShouldShowArtwork] == YES)
+    {
+        [showArtworkMenuItem setState:NSOffState];
+        [accountDefaults setBool:NO forKey:ShouldShowArtwork];
+    }
+    else
+    {
+        [showArtworkMenuItem setState:NSOnState];
+        [accountDefaults setBool:YES forKey:ShouldShowArtwork];
+    }
+}
+
+- (IBAction)showRating:(id)sender
+{
+    NSUserDefaults *accountDefaults = [NSUserDefaults standardUserDefaults];
+    
+    if ([accountDefaults boolForKey:ShouldShowRating] == YES)
+    {
+        [showRatingMenuItem setState:NSOffState];
+        [accountDefaults setBool:NO forKey:ShouldShowRating];
+    }
+    else
+    {
+        [showRatingMenuItem setState:NSOnState];
+        [accountDefaults setBool:YES forKey:ShouldShowRating];
+    }
+}
+
+- (IBAction)showURL:(id)sender
+{
+    NSUserDefaults *accountDefaults = [NSUserDefaults standardUserDefaults];
+    
+    if ([accountDefaults boolForKey:ShouldShowURL] == YES)
+    {
+        [showShareURLMenuItem setState:NSOffState];
+        [accountDefaults setBool:NO forKey:ShouldShowURL];
+    }
+    else
+    {
+        [showShareURLMenuItem setState:NSOnState];
+        [accountDefaults setBool:YES forKey:ShouldShowURL];
+    }
+}
+
 
 
 @end
