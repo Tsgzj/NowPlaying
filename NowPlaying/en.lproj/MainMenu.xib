@@ -84,7 +84,7 @@
 						<reference key="NSOnImage" ref="312238253"/>
 						<reference key="NSMixedImage" ref="519684792"/>
 					</object>
-					<object class="NSMenuItem" id="292760325">
+					<object class="NSMenuItem" id="762047148">
 						<reference key="NSMenu" ref="242321013"/>
 						<string key="NSTitle">Preference</string>
 						<string key="NSKeyEquiv"/>
@@ -92,44 +92,36 @@
 						<reference key="NSOnImage" ref="312238253"/>
 						<reference key="NSMixedImage" ref="519684792"/>
 						<string key="NSAction">submenuAction:</string>
-						<object class="NSMenu" key="NSSubmenu" id="29075086">
+						<object class="NSMenu" key="NSSubmenu" id="1013317883">
 							<string key="NSTitle">Preference</string>
 							<array class="NSMutableArray" key="NSMenuItems">
-								<object class="NSMenuItem" id="323889712">
-									<reference key="NSMenu" ref="29075086"/>
+								<object class="NSMenuItem" id="467617040">
+									<reference key="NSMenu" ref="1013317883"/>
 									<string key="NSTitle">show Artist</string>
 									<string key="NSKeyEquiv"/>
 									<int key="NSMnemonicLoc">2147483647</int>
 									<reference key="NSOnImage" ref="312238253"/>
 									<reference key="NSMixedImage" ref="519684792"/>
 								</object>
-								<object class="NSMenuItem" id="400077838">
-									<reference key="NSMenu" ref="29075086"/>
+								<object class="NSMenuItem" id="467344795">
+									<reference key="NSMenu" ref="1013317883"/>
 									<string key="NSTitle">show Album</string>
 									<string key="NSKeyEquiv"/>
 									<int key="NSMnemonicLoc">2147483647</int>
 									<reference key="NSOnImage" ref="312238253"/>
 									<reference key="NSMixedImage" ref="519684792"/>
 								</object>
-								<object class="NSMenuItem" id="200701072">
-									<reference key="NSMenu" ref="29075086"/>
+								<object class="NSMenuItem" id="258326976">
+									<reference key="NSMenu" ref="1013317883"/>
 									<string key="NSTitle">show Rating</string>
 									<string key="NSKeyEquiv"/>
 									<int key="NSMnemonicLoc">2147483647</int>
 									<reference key="NSOnImage" ref="312238253"/>
 									<reference key="NSMixedImage" ref="519684792"/>
 								</object>
-								<object class="NSMenuItem" id="332210158">
-									<reference key="NSMenu" ref="29075086"/>
-									<string key="NSTitle">show Douban Link</string>
-									<string key="NSKeyEquiv"/>
-									<int key="NSMnemonicLoc">2147483647</int>
-									<reference key="NSOnImage" ref="312238253"/>
-									<reference key="NSMixedImage" ref="519684792"/>
-								</object>
-								<object class="NSMenuItem" id="184964153">
-									<reference key="NSMenu" ref="29075086"/>
-									<string key="NSTitle">show Artwork</string>
+								<object class="NSMenuItem" id="23660877">
+									<reference key="NSMenu" ref="1013317883"/>
+									<string key="NSTitle">Show Douban Link</string>
 									<string key="NSKeyEquiv"/>
 									<int key="NSMnemonicLoc">2147483647</int>
 									<reference key="NSOnImage" ref="312238253"/>
@@ -311,7 +303,7 @@
 					<object class="IBOutletConnection" key="connection">
 						<string key="label">showArtistMenuItem</string>
 						<reference key="source" ref="976324537"/>
-						<reference key="destination" ref="323889712"/>
+						<reference key="destination" ref="467617040"/>
 					</object>
 					<int key="connectionID">578</int>
 				</object>
@@ -319,31 +311,15 @@
 					<object class="IBOutletConnection" key="connection">
 						<string key="label">showAlbumMenuItem</string>
 						<reference key="source" ref="976324537"/>
-						<reference key="destination" ref="400077838"/>
+						<reference key="destination" ref="467344795"/>
 					</object>
 					<int key="connectionID">579</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
-						<string key="label">showArtworkMenuItem</string>
-						<reference key="source" ref="976324537"/>
-						<reference key="destination" ref="184964153"/>
-					</object>
-					<int key="connectionID">580</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
-						<string key="label">showArtwork:</string>
-						<reference key="source" ref="976324537"/>
-						<reference key="destination" ref="184964153"/>
-					</object>
-					<int key="connectionID">581</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
 						<string key="label">showAlbum:</string>
 						<reference key="source" ref="976324537"/>
-						<reference key="destination" ref="400077838"/>
+						<reference key="destination" ref="467344795"/>
 					</object>
 					<int key="connectionID">582</int>
 				</object>
@@ -351,7 +327,7 @@
 					<object class="IBActionConnection" key="connection">
 						<string key="label">showArtist:</string>
 						<reference key="source" ref="976324537"/>
-						<reference key="destination" ref="323889712"/>
+						<reference key="destination" ref="467617040"/>
 					</object>
 					<int key="connectionID">583</int>
 				</object>
@@ -359,7 +335,7 @@
 					<object class="IBActionConnection" key="connection">
 						<string key="label">showRating:</string>
 						<reference key="source" ref="976324537"/>
-						<reference key="destination" ref="200701072"/>
+						<reference key="destination" ref="258326976"/>
 					</object>
 					<int key="connectionID">585</int>
 				</object>
@@ -367,7 +343,7 @@
 					<object class="IBOutletConnection" key="connection">
 						<string key="label">showRatingMenuItem</string>
 						<reference key="source" ref="976324537"/>
-						<reference key="destination" ref="200701072"/>
+						<reference key="destination" ref="258326976"/>
 					</object>
 					<int key="connectionID">586</int>
 				</object>
@@ -375,17 +351,17 @@
 					<object class="IBOutletConnection" key="connection">
 						<string key="label">showShareURLMenuItem</string>
 						<reference key="source" ref="976324537"/>
-						<reference key="destination" ref="332210158"/>
+						<reference key="destination" ref="23660877"/>
 					</object>
-					<int key="connectionID">588</int>
+					<int key="connectionID">591</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
 						<string key="label">showURL:</string>
 						<reference key="source" ref="976324537"/>
-						<reference key="destination" ref="332210158"/>
+						<reference key="destination" ref="23660877"/>
 					</object>
-					<int key="connectionID">589</int>
+					<int key="connectionID">592</int>
 				</object>
 			</array>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -439,7 +415,7 @@
 							<reference ref="314474564"/>
 							<reference ref="383827741"/>
 							<reference ref="844714824"/>
-							<reference ref="292760325"/>
+							<reference ref="762047148"/>
 						</array>
 						<reference key="parent" ref="0"/>
 					</object>
@@ -514,48 +490,42 @@
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">573</int>
-						<reference key="object" ref="292760325"/>
+						<reference key="object" ref="762047148"/>
 						<array class="NSMutableArray" key="children">
-							<reference ref="29075086"/>
+							<reference ref="1013317883"/>
 						</array>
 						<reference key="parent" ref="242321013"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">574</int>
-						<reference key="object" ref="29075086"/>
+						<reference key="object" ref="1013317883"/>
 						<array class="NSMutableArray" key="children">
-							<reference ref="323889712"/>
-							<reference ref="400077838"/>
-							<reference ref="184964153"/>
-							<reference ref="200701072"/>
-							<reference ref="332210158"/>
+							<reference ref="467617040"/>
+							<reference ref="467344795"/>
+							<reference ref="258326976"/>
+							<reference ref="23660877"/>
 						</array>
-						<reference key="parent" ref="292760325"/>
+						<reference key="parent" ref="762047148"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">575</int>
-						<reference key="object" ref="323889712"/>
-						<reference key="parent" ref="29075086"/>
+						<reference key="object" ref="467617040"/>
+						<reference key="parent" ref="1013317883"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">576</int>
-						<reference key="object" ref="400077838"/>
-						<reference key="parent" ref="29075086"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">577</int>
-						<reference key="object" ref="184964153"/>
-						<reference key="parent" ref="29075086"/>
+						<reference key="object" ref="467344795"/>
+						<reference key="parent" ref="1013317883"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">584</int>
-						<reference key="object" ref="200701072"/>
-						<reference key="parent" ref="29075086"/>
+						<reference key="object" ref="258326976"/>
+						<reference key="parent" ref="1013317883"/>
 					</object>
 					<object class="IBObjectRecord">
-						<int key="objectID">587</int>
-						<reference key="object" ref="332210158"/>
-						<reference key="parent" ref="29075086"/>
+						<int key="objectID">590</int>
+						<reference key="object" ref="23660877"/>
+						<reference key="parent" ref="1013317883"/>
 					</object>
 				</array>
 			</object>
@@ -583,17 +553,125 @@
 				<string key="574.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="575.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="576.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="577.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="584.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="587.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="590.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 			</dictionary>
 			<dictionary class="NSMutableDictionary" key="unlocalizedProperties"/>
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">589</int>
+			<int key="maxID">592</int>
 		</object>
-		<object class="IBClassDescriber" key="IBDocument.Classes"/>
+		<object class="IBClassDescriber" key="IBDocument.Classes">
+			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
+				<object class="IBPartialClassDescription">
+					<string key="className">NPAppDelegate</string>
+					<string key="superclassName">NSObject</string>
+					<dictionary class="NSMutableDictionary" key="actions">
+						<string key="changeStatus:">id</string>
+						<string key="quit:">id</string>
+						<string key="shareUsingTwitter:">id</string>
+						<string key="shareUsingWeibo:">id</string>
+						<string key="showAlbum:">id</string>
+						<string key="showArtist:">id</string>
+						<string key="showArtwork:">id</string>
+						<string key="showRating:">id</string>
+						<string key="showURL:">id</string>
+					</dictionary>
+					<dictionary class="NSMutableDictionary" key="actionInfosByName">
+						<object class="IBActionInfo" key="changeStatus:">
+							<string key="name">changeStatus:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="quit:">
+							<string key="name">quit:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="shareUsingTwitter:">
+							<string key="name">shareUsingTwitter:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="shareUsingWeibo:">
+							<string key="name">shareUsingWeibo:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="showAlbum:">
+							<string key="name">showAlbum:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="showArtist:">
+							<string key="name">showArtist:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="showArtwork:">
+							<string key="name">showArtwork:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="showRating:">
+							<string key="name">showRating:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="showURL:">
+							<string key="name">showURL:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+					</dictionary>
+					<dictionary class="NSMutableDictionary" key="outlets">
+						<string key="login">NSMenuItem</string>
+						<string key="showAlbumMenuItem">NSMenuItem</string>
+						<string key="showArtistMenuItem">NSMenuItem</string>
+						<string key="showArtworkMenuItem">NSMenuItem</string>
+						<string key="showRatingMenuItem">NSMenuItem</string>
+						<string key="showShareURLMenuItem">NSMenuItem</string>
+						<string key="statusMenu">NSMenu</string>
+						<string key="twitter">NSMenuItem</string>
+						<string key="weibo">NSMenuItem</string>
+					</dictionary>
+					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
+						<object class="IBToOneOutletInfo" key="login">
+							<string key="name">login</string>
+							<string key="candidateClassName">NSMenuItem</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="showAlbumMenuItem">
+							<string key="name">showAlbumMenuItem</string>
+							<string key="candidateClassName">NSMenuItem</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="showArtistMenuItem">
+							<string key="name">showArtistMenuItem</string>
+							<string key="candidateClassName">NSMenuItem</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="showArtworkMenuItem">
+							<string key="name">showArtworkMenuItem</string>
+							<string key="candidateClassName">NSMenuItem</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="showRatingMenuItem">
+							<string key="name">showRatingMenuItem</string>
+							<string key="candidateClassName">NSMenuItem</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="showShareURLMenuItem">
+							<string key="name">showShareURLMenuItem</string>
+							<string key="candidateClassName">NSMenuItem</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="statusMenu">
+							<string key="name">statusMenu</string>
+							<string key="candidateClassName">NSMenu</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="twitter">
+							<string key="name">twitter</string>
+							<string key="candidateClassName">NSMenuItem</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="weibo">
+							<string key="name">weibo</string>
+							<string key="candidateClassName">NSMenuItem</string>
+						</object>
+					</dictionary>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/NPAppDelegate.h</string>
+					</object>
+				</object>
+			</array>
+		</object>
 		<int key="IBDocument.localizationMode">0</int>
 		<string key="IBDocument.TargetRuntimeIdentifier">IBCocoaFramework</string>
 		<bool key="IBDocument.PluginDeclaredDependenciesTrackSystemTargetVersion">YES</bool>

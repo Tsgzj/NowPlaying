@@ -34,7 +34,6 @@ NSString * const ShouldShowURL = @"showURL";
     // Insert code here to initialize your application
     
     [[NSRunningApplication currentApplication] activateWithOptions:NSApplicationActivateIgnoringOtherApps];
-    NSLog(@"didfinishilaunching");
 }
 
 - (void)awakeFromNib{
@@ -64,13 +63,17 @@ NSString * const ShouldShowURL = @"showURL";
         [showRatingMenuItem setState:NSOnState];
     else
         [showRatingMenuItem setState:NSOffState];
+    
+    if ([accountDefaults boolForKey:ShouldShowURL] == YES)
+        [showShareURLMenuItem setState:NSOnState];
+    else
+        [showShareURLMenuItem setState:NSOffState];
 
     
     statusItem = [[NSStatusBar systemStatusBar] statusItemWithLength:NSVariableStatusItemLength];
     [statusItem setMenu:statusMenu];
     [statusItem setImage:[NSImage imageNamed:@"music.png"]];
     [statusItem setHighlightMode:YES];
-    NSLog(@"awake");
 }
 
 - (NSString *)getNowPlayingInfo
@@ -91,7 +94,6 @@ NSString * const ShouldShowURL = @"showURL";
     NSString *track_artist = @"";
     NSString *track_album = @"";
     NSString *track_rating = @"";
-    NSString *shareURL = @"";
     
     NSUserDefaults *accountDefaults = [NSUserDefaults standardUserDefaults];
     
@@ -118,16 +120,8 @@ NSString * const ShouldShowURL = @"showURL";
         for(int i=0; i<5-track_rating_number; i++)
             track_rating = [track_rating stringByAppendingString:@"☆"];
     }
-    
-    if ([accountDefaults boolForKey:ShouldShowURL] == YES)
-    {
-        NSString *searchURL = @"http://music.douban.com/subject_search?search_text=";
-        NSString *track_name_decoded = [track_name stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-        shareURL = [NSString stringWithFormat:@"  %@%@&cat=1003", searchURL, track_name_decoded];
-        NSLog(@"%@", shareURL);
-    }
-    
-    return [NSString stringWithFormat:@"%@%@%@%@%@%@", podcast, track_name, track_artist, track_album, track_rating, shareURL];
+        
+    return [NSString stringWithFormat:@"%@%@%@%@%@", podcast, track_name, track_artist, track_album, track_rating];
 }
 
 - (NSImage *)getTrackArtwork
@@ -137,6 +131,46 @@ NSString * const ShouldShowURL = @"showURL";
     
     iTunesArtwork *artwork = (iTunesArtwork *)[[[current artworks] get] lastObject];
     return [[NSImage alloc] initWithData:[artwork rawData]];
+}
+
+- (NSRect) sharingService: (NSSharingService *) sharingService
+sourceFrameOnScreenForShareItem: (id<NSPasteboardWriting>) item
+{
+    if([item isKindOfClass: [NSURL class]])
+    {
+        //return a rect from where the image will fly
+        return NSZeroRect;
+    }
+    
+    return NSZeroRect;
+}
+
+- (NSImage *) sharingService: (NSSharingService *) sharingService
+ transitionImageForShareItem: (id <NSPasteboardWriting>) item
+                 contentRect: (NSRect *) contentRect
+{
+    if([item isKindOfClass: [NSURL class]])
+    {
+        
+        return [self getTrackArtwork];
+    }
+    
+    return nil;
+}
+
+
+- (NSURL *)getShareURL
+{
+    iTunesApplication *iTunes = [SBApplication applicationWithBundleIdentifier:@"com.apple.iTunes"];
+    iTunesTrack *current = [iTunes currentTrack];
+
+    NSString *track_name = current.name;
+   
+    NSString *searchURL = @"http://music.douban.com/subject_search?search_text=";
+    NSString *track_name_decoded = [track_name stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    
+    
+    return [[NSURL alloc] initWithString:[NSString stringWithFormat:@"%@%@&cat=1003", searchURL, track_name_decoded]];
 }
 
 - (IBAction)shareUsingWeibo:(id)sender
@@ -157,14 +191,16 @@ NSString * const ShouldShowURL = @"showURL";
     
     NSMutableArray *shareItems = [[NSMutableArray alloc] initWithObjects:nowPlayingString, nil];
 
-    
     NSUserDefaults *accountDefaults = [NSUserDefaults standardUserDefaults];
     
-    if ([accountDefaults boolForKey:ShouldShowArtwork] == YES)
-    {
-        if([self getTrackArtwork])
-            [shareItems addObject:[self getTrackArtwork]];
-    }
+//    if ([accountDefaults boolForKey:ShouldShowArtwork] == YES)
+//    {
+//        if([self getTrackArtwork])
+//            [shareItems addObject:[self getTrackArtwork]];
+//    }
+    
+    if ([accountDefaults boolForKey:ShouldShowURL] == YES)
+        [shareItems addObject:[self getShareURL]];
     
     NSSharingService *weiboSharingService = [NSSharingService sharingServiceNamed:NSSharingServiceNamePostOnSinaWeibo];
     weiboSharingService.delegate = self;
@@ -191,11 +227,11 @@ NSString * const ShouldShowURL = @"showURL";
     
     NSUserDefaults *accountDefaults = [NSUserDefaults standardUserDefaults];
     
-    if ([accountDefaults boolForKey:ShouldShowArtwork] == YES)
-    {
-        if([self getTrackArtwork])
-            [shareItems addObject:[self getTrackArtwork]];
-    }
+//    if ([accountDefaults boolForKey:ShouldShowArtwork] == YES)
+//    {
+//        if([self getTrackArtwork])
+//            [shareItems addObject:[self getTrackArtwork]];
+//    }
     
     NSSharingService *twitterSharingService = [NSSharingService sharingServiceNamed:NSSharingServiceNamePostOnTwitter];
     twitterSharingService.delegate = self;

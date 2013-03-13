@@ -8,6 +8,7 @@
 
 #import <Cocoa/Cocoa.h>
 #import "iTunes.h"
+
 extern NSString * const ShouldShowArtist;
 extern NSString * const ShouldShowAlbum;
 extern NSString * const ShouldShowArtwork;
