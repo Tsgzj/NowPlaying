@@ -17,7 +17,7 @@ NSString * const ShouldShowURL = @"showURL";
 
 @property (strong) NSSharingService *weiboSharingService;
 @property (strong) NSSharingService *twitterSharingService;
-
+@property (strong) NSSharingService *facebookSharingService;
 
 @end
 
@@ -117,8 +117,8 @@ NSString * const ShouldShowURL = @"showURL";
         track_rating = @" Rating:";
         for(int i=0; i<track_rating_number; i++)
             track_rating = [track_rating stringByAppendingString:@"★"];
-        for(int i=0; i<5-track_rating_number; i++)
-            track_rating = [track_rating stringByAppendingString:@"☆"];
+        if((current.rating%20) != 0)
+            track_rating = [track_rating stringByAppendingString:@"½"];
     }
         
     return [NSString stringWithFormat:@"%@%@%@%@%@", podcast, track_name, track_artist, track_album, track_rating];
@@ -159,19 +159,18 @@ sourceFrameOnScreenForShareItem: (id<NSPasteboardWriting>) item
 }
 
 
-- (NSURL *)getShareURL
-{
-    iTunesApplication *iTunes = [SBApplication applicationWithBundleIdentifier:@"com.apple.iTunes"];
-    iTunesTrack *current = [iTunes currentTrack];
-
-    NSString *track_name = current.name;
-   
-    NSString *searchURL = @"http://music.douban.com/subject_search?search_text=";
-    NSString *track_name_decoded = [track_name stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-    
-    
-    return [[NSURL alloc] initWithString:[NSString stringWithFormat:@"%@%@&cat=1003", searchURL, track_name_decoded]];
-}
+//- (NSString *)getShareURL
+//{
+//    iTunesApplication *iTunes = [SBApplication applicationWithBundleIdentifier:@"com.apple.iTunes"];
+//    iTunesTrack *current = [iTunes currentTrack];
+//
+//    NSString *track_name = current.name;
+//   
+//    NSString *searchURL = @"http://music.douban.com/subject_search?search_text=";
+//    NSString *track_name_decoded = [track_name stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+//    
+//    return [NSString stringWithFormat:@"[%@%@&cat=1003]", searchURL, track_name_decoded];
+//}
 
 - (IBAction)shareUsingWeibo:(id)sender
 {
@@ -193,14 +192,14 @@ sourceFrameOnScreenForShareItem: (id<NSPasteboardWriting>) item
 
     NSUserDefaults *accountDefaults = [NSUserDefaults standardUserDefaults];
     
-//    if ([accountDefaults boolForKey:ShouldShowArtwork] == YES)
-//    {
-//        if([self getTrackArtwork])
-//            [shareItems addObject:[self getTrackArtwork]];
-//    }
+    if ([accountDefaults boolForKey:ShouldShowArtwork] == YES)
+    {
+        if([self getTrackArtwork])
+            [shareItems addObject:[self getTrackArtwork]];
+    }
     
-    if ([accountDefaults boolForKey:ShouldShowURL] == YES)
-        [shareItems addObject:[self getShareURL]];
+//    if ([accountDefaults boolForKey:ShouldShowURL] == YES)
+//        [shareItems addObject:[self getShareURL]];
     
     NSSharingService *weiboSharingService = [NSSharingService sharingServiceNamed:NSSharingServiceNamePostOnSinaWeibo];
     weiboSharingService.delegate = self;
@@ -227,16 +226,47 @@ sourceFrameOnScreenForShareItem: (id<NSPasteboardWriting>) item
     
     NSUserDefaults *accountDefaults = [NSUserDefaults standardUserDefaults];
     
-//    if ([accountDefaults boolForKey:ShouldShowArtwork] == YES)
-//    {
-//        if([self getTrackArtwork])
-//            [shareItems addObject:[self getTrackArtwork]];
-//    }
+    if ([accountDefaults boolForKey:ShouldShowArtwork] == YES)
+    {
+        if([self getTrackArtwork])
+            [shareItems addObject:[self getTrackArtwork]];
+    }
     
     NSSharingService *twitterSharingService = [NSSharingService sharingServiceNamed:NSSharingServiceNamePostOnTwitter];
     twitterSharingService.delegate = self;
     self.twitterSharingService = twitterSharingService;
     [self.twitterSharingService performWithItems:shareItems];
+}
+
+- (IBAction)shareUsingFacebook:(id)sender
+{
+    NSString *nowPlayingString = [self getNowPlayingInfo];
+    if (!nowPlayingString){
+        NSAlert *alert = [[NSAlert alloc] init];
+        [alert setMessageText:@"NowPlaying"];
+        [alert setInformativeText:@"No Music Playing!"];
+        [alert runModal];
+        return;
+    }
+    else
+        nowPlayingString = [NSString stringWithFormat:@"I'm Listening :%@", nowPlayingString];
+    if (nowPlayingString.length >= 240) {
+        nowPlayingString = [nowPlayingString substringToIndex:239];
+    }
+    NSMutableArray *shareItems = [[NSMutableArray alloc] initWithObjects:nowPlayingString, nil];
+    
+    NSUserDefaults *accountDefaults = [NSUserDefaults standardUserDefaults];
+    
+    if ([accountDefaults boolForKey:ShouldShowArtwork] == YES)
+    {
+            if([self getTrackArtwork])
+                [shareItems addObject:[self getTrackArtwork]];
+    }
+    
+    NSSharingService *twitterSharingService = [NSSharingService sharingServiceNamed:NSSharingServiceNamePostOnFacebook];
+    twitterSharingService.delegate = self;
+    self.facebookSharingService = twitterSharingService;
+    [self.facebookSharingService performWithItems:shareItems];
 }
 
 - (IBAction)quit:(id)sender;
