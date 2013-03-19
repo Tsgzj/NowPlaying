@@ -184,8 +184,8 @@ sourceFrameOnScreenForShareItem: (id<NSPasteboardWriting>) item
     }
     else
         nowPlayingString = [NSString stringWithFormat:@"#NowPlaying#   %@", nowPlayingString];
-    if (nowPlayingString.length >= 240) {
-        nowPlayingString = [nowPlayingString substringToIndex:239];
+    if (nowPlayingString.length >= 280) {
+        nowPlayingString = [nowPlayingString substringToIndex:279];
     }
     
     NSMutableArray *shareItems = [[NSMutableArray alloc] initWithObjects:nowPlayingString, nil];
@@ -205,6 +205,14 @@ sourceFrameOnScreenForShareItem: (id<NSPasteboardWriting>) item
     weiboSharingService.delegate = self;
     self.weiboSharingService = weiboSharingService;
     [self.weiboSharingService performWithItems:shareItems];
+}
+
+- (NSWindow *)sharingService:(NSSharingService *)sharingService sourceWindowForShareItems:(NSArray *)items sharingContentScope:(NSSharingContentScope *)sharingContentScope
+{
+    //NSLog(@"show");
+    NSWindow *newWindow = [[NSWindow alloc] init];
+    [newWindow center];
+    return newWindow;
 }
 
 - (IBAction)shareUsingTwitter:(id)sender
