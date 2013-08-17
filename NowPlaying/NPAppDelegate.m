@@ -114,11 +114,14 @@ NSString * const ShouldShowURL = @"showURL";
     if ([accountDefaults boolForKey:ShouldShowRating] == YES)
     {
         int track_rating_number = (int)current.rating/20;
-        track_rating = @" Rating:";
-        for(int i=0; i<track_rating_number; i++)
-            track_rating = [track_rating stringByAppendingString:@"★"];
-        if((current.rating%20) != 0)
-            track_rating = [track_rating stringByAppendingString:@"½"];
+        if(current.rating != NULL)
+        {
+            track_rating = @" Rating:";
+            for(int i=0; i<track_rating_number; i++)
+                track_rating = [track_rating stringByAppendingString:@"★"];
+            if((current.rating%20) != 0)
+                track_rating = [track_rating stringByAppendingString:@"½"];
+        }
     }
         
     return [NSString stringWithFormat:@"%@%@%@%@%@", podcast, track_name, track_artist, track_album, track_rating];
